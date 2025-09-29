@@ -28,6 +28,7 @@ void wificollector_collect() {
             printf("Desea añadir otro punto de acceso? [s/N]: \n");
             scanf(" %c",&respuesta);
         }
+
     } while(respuesta=='S'||respuesta=='s');
 
 }
