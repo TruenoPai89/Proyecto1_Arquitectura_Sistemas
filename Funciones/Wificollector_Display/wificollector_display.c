@@ -3,12 +3,13 @@
 #include "../Wificollector_Collect/wificollector_collect.h"
 
 void wificollector_display() {
-    int ncell;
     char respuesta='s';
 
     do {
-        printf("Indique el número de la celda de la que desea conocer su información (1 - 21):  \n");
+        int ncell=0;
+        printf("Indique el numero de la celda de la que desea conocer su informacion (1 - 21):  \n");
         scanf("%d",&ncell);
+        //if(collectors[ncell-1])
         puts(collectors[ncell-1].texto);
         printf("Desea imprimir la informacion de otra celda? [s/N]: ");
         scanf(" %c",&respuesta);

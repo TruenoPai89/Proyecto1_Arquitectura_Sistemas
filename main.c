@@ -2,6 +2,7 @@
 #include "Funciones/Wificollector_Collect/wificollector_collect.h"
 #include "Funciones/Wificollector_Quit/wificollector_quit.h"
 #include "Funciones/Wificollector_Display/wificollector_display.h"
+#include "Funciones/Wificollector_Display_All/wificollector_display_all.h"
 
 int main() {
     char respuesta="";
@@ -26,6 +27,10 @@ int main() {
                 break;
             case 3:
                 wificollector_display();
+                break;
+            case 4:
+                wificollector_display_all();
+                break;
             default:
                 return 0;
         }
