@@ -1,20 +1,14 @@
-CC = gcc
-CFLAGS = -Wall -g
-
-# Archivos fuente
-SRC = src/main.c src/wificollector_collect.c src/wificollector_display src/wificollector_display_all src/wificollector_quit
-
-OBJ = $(SRC:.c=.o)
-
-TARGET = programa
-
-all: $(TARGET)
-
-$(TARGET): $(OBJ)
-	$(CC) $(OBJ) -o $(TARGET)
-
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
-
+main: main.o wificollector_collect.o wificollector_display.o wificollector_display_all.o wificollector_quit.0
+main.o:
+	gcc -c src/main.c
+wificollector_collect.o:
+	gcc -c src/wificollector_collect.c
+wificollector_display.o:
+	gcc -c src/wificollector_display.c
+wificollector_display_all.o:
+	gcc -c src/wificollector_display_all.c
+wificollector_quit.o:
+	gcc -c src/wificollector_quit.c
 clean:
-	rm -f $(OBJ) $(TARGET)
+	rm main \
+	*.o
