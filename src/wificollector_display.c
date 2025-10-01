@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include "wificollector_display.h"
-#include "../Wificollector_Collect/wificollector_collect.h"
+#include "../incl/wificollector_display.h"
+#include "../incl/wificollector_collect.h"
 
 void wificollector_display() {
     char respuesta='s';

@@ -1,8 +1,8 @@
 #include <stdio.h>
-#include "Funciones/Wificollector_Collect/wificollector_collect.h"
-#include "Funciones/Wificollector_Quit/wificollector_quit.h"
-#include "Funciones/Wificollector_Display/wificollector_display.h"
-#include "Funciones/Wificollector_Display_All/wificollector_display_all.h"
+#include "../incl/wificollector_collect.h"
+#include "../incl/wificollector_quit.h"
+#include "../incl/wificollector_display.h"
+#include "../incl/wificollector_display_all.h"
 
 int main() {
     char respuesta="";

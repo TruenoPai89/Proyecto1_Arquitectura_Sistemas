@@ -1,4 +1,4 @@
-#include "wificollector_quit.h"
+#include "../incl/wificollector_quit.h"
 #include <stdio.h>
 
 char wificollector_quit(char *prespuesta) {
@@ -10,4 +10,3 @@ char wificollector_quit(char *prespuesta) {
     *prespuesta = aux;
     return *prespuesta;
 }
-

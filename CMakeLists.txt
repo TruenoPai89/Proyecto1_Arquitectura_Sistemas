@@ -4,12 +4,12 @@ project(Programa C)
 set(CMAKE_C_STANDARD 11)
 
 add_executable(Programa
-    main.c
-        Funciones/Wificollector_Collect/wificollector_collect.c
-        Funciones/Wificollector_Collect/wificollector_collect.h
-        Funciones/Wificollector_Quit/wificollector_quit.c
-        Funciones/Wificollector_Quit/wificollector_quit.h
-        Funciones/Wificollector_Display/wificollector_display.h
-        Funciones/Wificollector_Display/wificollector_display.c
-        Funciones/Wificollector_Display_All/wificollector_display_all.h
-        Funciones/Wificollector_Display_All/wificollector_display_all.c)
+        src/main.c
+        incl/wificollector_quit.h
+        src/wificollector_quit.c
+        incl/wificollector_display_all.h
+        src/wificollector_display_all.c
+        incl/wificollector_collect.h
+        src/wificollector_collect.c
+        src/wificollector_display.c
+        incl/wificollector_display.h)
