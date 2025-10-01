@@ -22,15 +22,15 @@ void wificollector_collect() {
             printf("Error al abrir el archivo\n");
         }
         else {
-            poscion_celda=ncelda-1;
+                poscion_celda=ncelda-1;
 
-            while(fgets(linea,sizeof(linea),f)) {
-                strcat(texto,linea);
-                linea[1000]="\0";
-            }
-            fclose(f);
-            collectors[poscion_celda].celda=ncelda;
-            strcpy(collectors[poscion_celda].texto,texto);
+                while(fgets(linea,sizeof(linea),f)) {
+                    strcat(texto,linea);
+                    linea[1000]="\0";
+                }
+                fclose(f);
+                collectors[poscion_celda].celda=ncelda;
+                strcpy(collectors[poscion_celda].texto,texto);
         }
 
         printf("Desea anadir otro punto de acceso? [s/N]: \n");

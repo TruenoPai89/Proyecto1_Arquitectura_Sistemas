@@ -5,10 +5,10 @@
 void wificollector_display_all() {
 
     for (int i = 0; i <= 20; i++) {
-        if (collectors[i].texto!=NULL) {
+        if (collectors[i].celda!=0) {
             puts(collectors[i].texto);
         }else {
-            printf("No hay informacion de la celda %d",i);
+            printf("No hay informacion de la celda numero: %d\n",i);
         }
     }
 }
