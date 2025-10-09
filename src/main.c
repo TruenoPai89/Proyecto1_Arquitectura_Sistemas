@@ -1,11 +1,25 @@
+/**
+ *@author Carlos Condor
+ *@date 2025-10-03
+ *@file main.c
+ *@brief Archivo principal que contiene todas las funciones del programa
+ *@brief Delcacracion de las cabeceras necesarias para el fucnionamiento del programa
+ */
 #include <stdio.h>
 #include "../incl/wificollector_collect.h"
 #include "../incl/wificollector_quit.h"
 #include "../incl/wificollector_display.h"
 #include "../incl/wificollector_display_all.h"
 
+
+/**
+ *@return 0
+ * @brief Funcion principal donde se llaman a las funciones de otros archivos
+ * @details Se usara un bucle do-while para poder ejecutar el programa las veces que el usuario desee, con un switch se podra seleccionar las diferentes
+ * opciones que se mostraran por pantalla.
+ */
 int main() {
-    char respuesta="";
+    char respuesta='\0';
 
     do {
         int option=0;

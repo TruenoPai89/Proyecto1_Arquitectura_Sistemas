@@ -1,9 +1,18 @@
+/**
+ *@file wificollector_display.c
+ *@brief Implementacion de funciones para mostrar las celdas almacenadas
+ *@author Carlos Condor
+ *@date 2025-10-03
+ */
 #include <stdio.h>
-#include "../incl/wificollector_display.h"
-#include "../incl/wificollector_collect.h"
+#include "../incl/wificollector_display.h"      //Incluimos la cabecera de display.h donde definimos la funcion
+#include "../incl/wificollector_collect.h"      //Incluimos la cabecera de collect.h donde estan nuestro arreglo de la estructura collect
 
+/**
+ *@brief Implementacion de funcion wificollector_diplay para mostrar las celdas recolectadas segun desee
+ */
 void wificollector_display() {
-    char respuesta='s';
+    char respuesta='s';     //Variable donde se almacena respuesta del usuario para seguir mostrando las celdas
 
     do {
         int ncell=0;
