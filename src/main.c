@@ -13,13 +13,13 @@
 
 
 /**
- *@return 0
  * @brief Funcion principal donde se llaman a las funciones de otros archivos
- * @details Se usara un bucle do-while para poder ejecutar el programa las veces que el usuario desee, con un switch se podra seleccionar las diferentes
+ * @details Se usará un bucle do-while para poder ejecutar el programa las veces que el usuario desee, con un switch se podra seleccionar las diferentes
  * opciones que se mostraran por pantalla.
  */
 int main() {
     char respuesta='\0';
+    int posicion_celda=0;
 
     do {
         int option=0;
@@ -37,7 +37,7 @@ int main() {
                 wificollector_quit(&respuesta);
                 break;
             case 2:
-                wificollector_collect();
+                wificollector_collect(&posicion_celda);
                 break;
             case 3:
                 wificollector_display();

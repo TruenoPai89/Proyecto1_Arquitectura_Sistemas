@@ -10,19 +10,25 @@
 
 /**
  * @brief Deficion de la funcion wificollector_display_all
- * @details La funcion imprimira todos las celdas que se encuentren guardadas en la estructura collectors y de no existir imprimira que no existe
- * existe informacion de la misma.
+ * @details La funcion imprimira todas las celdas que se encuentren guardadas en la estructura collectors y de no existir imprimira que no existe
+ *  información de la misma.
  */
 void wificollector_display_all() {
 
-    int ncell=0;
-
     for (int i = 0; i <= 20; i++) {
-        if (collectors[i].celda!=0) {
-            puts(collectors[i].texto);
+        if (collectors[i].ncelda!=0) {
+            puts(collectors[i].celda);
+            puts(collectors[i].address);
+            puts(collectors[i].essid);
+            puts(collectors[i].mode);
+            puts(collectors[i].chanel);
+            puts(collectors[i].encryption);
+            puts(collectors[i].quality);
+            puts(collectors[i].frecuency);
+            puts(collectors[i].signal_level);
         }else {
-            ncell=i;
-            printf("No hay informacion de la celda numero: %d\n",ncell+1);
+            //ncell=i;
+            //printf("No hay informacion de la celda numero: %d\n",ncell+1);
         }
     }
 }

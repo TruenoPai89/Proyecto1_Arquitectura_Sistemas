@@ -9,16 +9,14 @@
 #include <stdio.h>
 
 /**
- *
- * @param prespuesta dirreccion de memoria del caracter respuesta del archivo main.c
- * @return el cambio en el caracter de respuesta de main.c
+ *@brief Funcion para cambiar la respuesta de la variable respuesta en main.c
+ * @param prespuesta Dirreccion de memoria del caracter respuesta del archivo main.c
  */
-char wificollector_quit(char *prespuesta) {
+void wificollector_quit(char *prespuesta) {
 
     char aux;
 
     printf("Esta seguro de que desea salir del programa? [s/N]:\n");
     scanf(" %c", &aux);
     *prespuesta = aux;
-    return *prespuesta;
 }

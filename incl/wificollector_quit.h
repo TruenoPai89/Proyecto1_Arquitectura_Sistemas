@@ -8,8 +8,8 @@
 
 /**
  *
- * @param prespuesta dirreccion de memoria del caracter respuesta del archivo main.c
+ * @param prespuesta Dirreccion de memoria del caracter respuesta del archivo main.c
  * @return Retorna un cambio en el caracter respuesta de main.c
  */
-char wificollector_quit(char *prespuesta);
+void wificollector_quit(char *prespuesta);
 #endif //WIFICOLLECTOR_QUIT_H
