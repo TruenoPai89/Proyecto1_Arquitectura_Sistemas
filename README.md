@@ -102,12 +102,10 @@ clean:
 Una vez hecho esto solo debemos escribir `./main`
 
 ## Errores comunes y consejos
-* Ruta relativa: si no encuentra el TXT, revisa desde dónde ejecutas el binario (la ruta fija es ../input_files/).
- wificollector_collect
+* **Ruta relativa:** Si no encuentra el TXT, revisa desde dónde ejecutas el binario (la ruta fija es `../input_files/info_cell_%d.txt`).
 
-* Índice fuera de rango: introduce valores entre 1 y 21. display ya avisa si no es válido.
- wificollector_display
+* **Índice fuera de rango:** Introduce valores entre 1 y 21. display ya avisa si no es válido.
 
-* Celdas repetidas: no se sobreescriben; elimina/ajusta manualmente si quieres recargar una celda con contenido nuevo. 
+* **Celdas repetidas:** No se sobreescriben, informa que ya existe dicha celda y vuelve a preguntar si desea añadir otra. 
 
 
