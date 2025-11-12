@@ -7,13 +7,15 @@ Esta es una app de consola con un menú para recolectar (leer de ficheros) y mos
 
 **1) wificollector_quit:** Pide confirmación y fija la respuesta para terminar el bucle de main.
 
-**2) wificollector_collect:** Solicita un nº de celda (1–21), abre `../input_files/info_cell_<n>.txt` y guarda sus 9 líneas en la estructura global `colectors`. 
+**2) wificollector_delete_net:** Solicita la ESSID de la red a la que se desea eliminar y recorre el arreglo buscando alguna red que tengga ese nombre.
+
+**3) wificollector_collect:** Solicita un nº de celda (1–21), abre `../input_files/info_cell_<n>.txt` y guarda sus 9 líneas en la estructura global `colectors`. 
 Evita duplicados con la funcion `controlador_celda_repetida`.
 
-**3) wificollector_display:** Pide un nº de celda y, recorre el array y si existe, imprime sus 9 campos. 
+**4) wificollector_display:** Pide un nº de celda y, recorre el array y si existe, imprime sus 9 campos. 
 Esto se repite mientras el usuario responda `s` o `S`.
 
-**4) wificollector_display_all:** Recorre todo el array de la structura `colectors` e imprime las celdas con ncelda != 0.
+**5) wificollector_display_all:** Recorre todo el array de la structura `colectors` e imprime las celdas con ncelda != 0.
  
 
 
@@ -24,6 +26,7 @@ programa/
 │  └─ Makefile
 ├─ incl/
 │  ├─ wificollector_collect.h
+│  ├─ wificollector_delete_net.h
 │  ├─ wificollector_display.h
 │  ├─ wificollector_display_all.h
 │  └─ wificollector_quit.h
@@ -32,19 +35,22 @@ programa/
 ├─ src/
 │  ├─ main.c
 │  ├─ wificollector_collect.c
+│  ├─ wificollector_delete_net.c
 │  ├─ wificollector_display.c
 │  ├─ wificollector_display_all.c
-│  └─ wificollector_quit.c
+│  └─ wificollector_quit.c    
 ```
 
 ## Qué aporta cada archivo
-### 1) main.c: 
+### 1) main.c
 * Muestra el menú, lee la opción y llama a la función correspondiente.
 * Mantiene un bucle do-while que solo termina cuando `wificollector_quit` establece `respuesta = 's'/'S'`.
  main
 
 ### 2) wificollector_collect.c
-* Define el array global `collectors[SIZE_ARRAY]` donde `SIZE_ARRAY` es igual a 200 y lo inicializa a cero.
+* Se asigna memoria mediante `malloc` con un tamaño inicial de 5, dependiendo de si el usuario desea ingresar más celdas el
+tamaño se ampliará 5 veces más con la funcion `calloc`, para ello se ocupara la variable `m_espacio` que esta definida en `main.c`
+, la misma se irá ampliando en el mismo archivo `wificollector_collect`.
 
 * Construye la ruta `../input_files/info_cell_%d.txt`, abre en modo lectura y reparte cada línea a su campo `(CELDA… SIGNAL LEVEL)`.
 
@@ -64,6 +70,12 @@ y permite colocar cada estructura de un puesto determinado según se van recolec
 ### 5) wificollector_quit.c
 * Pide confirmación ([s/N]) y, por puntero, copia la respuesta en la variable `respuesta` de `main.c`.
 
+### 2) wificolector_delete_net.c
+* Solicita ESSID de la red que deseamos eliminar y mediante el uso de un bucle que se repetira `m_espacio` busca alguna 
+red que tenga dicha ESSID
+* Sí encuentra alguna red con esta coincidencia empieza a desplazar las redes que existan después de la red a eliminar
+
+
 ## Flujo de datos y estructura usada
 Estructura (declarada en la cabecera `wificollector_collect.h`; visible por sus campos en el código):
 * `ncelda`
@@ -77,14 +89,14 @@ Estructura (declarada en la cabecera `wificollector_collect.h`; visible por sus 
 * `frecuency` 
 * `signal_level`
 
-El array global `collectors[SIZE_ARRAY]` vive en `wificollector_collect.c` y se comparte vía extern en las cabeceras.
-
+Se asigna memoria mediante el uso de la funcion `malloc` con un tamaño inicial de 5 y sé irá ampliando dependiendo de si 
+se requiere espacio.
 ## Compilación y ejecución
 Para poder ejecutar el programa deberemos dirigirnos a la carpeta exe y una vez dentro ejecutar el comando `make`
 que mediante el archivo Makefile que está en la carpeta creara los ejecutables dentro de la misma.
 
 ````
-main: main.o wificollector_collect.o wificollector_display.o wificollector_display_all.o wificollector_quit.o
+main: main.o wificollector_collect.o wificollector_display.o wificollector_display_all.o wificollector_quit.o wificollector_delete_net.o
 main.o:
 	gcc -c ../src/main.c
 wificollector_collect.o:
@@ -94,6 +106,8 @@ wificollector_display.o:
 wificollector_display_all.o:
 	gcc -c ../src/wificollector_display_all.c
 wificollector_quit.o:
+	gcc -c ../src/wificollector_quit.c
+wificollector_delete_net.o:
 	gcc -c ../src/wificollector_quit.c
 clean:
 	rm main \
