@@ -10,7 +10,7 @@ wificollector_display_all.o:
 wificollector_quit.o:
 	gcc -c ../src/wificollector_quit.c
 wificollector_delete_net.o:
-	gcc -c ../src/wificollector_quit.c
+	gcc -c ../src/wificollector_delete_net.c
 clean:
 	rm main \
 	*.o
