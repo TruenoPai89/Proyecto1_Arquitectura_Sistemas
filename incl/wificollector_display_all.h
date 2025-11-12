@@ -8,6 +8,7 @@
 
 /**
  * @brief Definicion de la funcion wificollector_display_all
+ * @param m_espacio_aux Entero con el tamaño del arreglo collectors
  */
-void wificollector_display_all();
+void wificollector_display_all(int m_espacio_aux);
 #endif

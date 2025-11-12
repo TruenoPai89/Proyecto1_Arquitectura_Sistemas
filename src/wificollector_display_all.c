@@ -10,13 +10,13 @@
 
 /**
  * @brief Deficion de la funcion wificollector_display_all
- * @details La funcion imprimira todas las celdas que se encuentren guardadas en la estructura collectors y de no existir imprimira que no existe
- *  información de la misma.
+ * @param m_espacio_aux Entero con el tamaño del arreglo collectors
+ * @details La funcion imprimira todas las celdas que se encuentren guardadas en la estructura collectors con tamaño m_espacio_aux
  */
-void wificollector_display_all() {
+void wificollector_display_all(int m_espacio_aux) {
 
-    for (int i = 0; i <= 20; i++) {
-        if (collectors[i].ncelda!=0) {
+    for (int i = 0; i <= m_espacio_aux; i++) {
+        if (collectors!=NULL) {
             puts(collectors[i].celda);
             puts(collectors[i].address);
             puts(collectors[i].essid);
@@ -27,8 +27,7 @@ void wificollector_display_all() {
             puts(collectors[i].frecuency);
             puts(collectors[i].signal_level);
         }else {
-            //ncell=i;
-            //printf("No hay informacion de la celda numero: %d\n",ncell+1);
+            continue;
         }
     }
 }

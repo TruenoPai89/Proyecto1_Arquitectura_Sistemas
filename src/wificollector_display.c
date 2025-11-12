@@ -8,19 +8,20 @@
 #include "../incl/wificollector_display.h"      //Incluimos la cabecera de display.h donde definimos la funcion
 #include "../incl/wificollector_collect.h"      //Incluimos la cabecera de collect.h donde están nuestro arreglo de la estructura collect
 
+
 /**
  *@brief Implementacion de funcion wificollector_diplay para mostrar las celdas recolectadas según desee
  */
-void wificollector_display() {
+void wificollector_display(int m_espacio_aux) {
     char respuesta='s';     //Variable donde se almacena respuesta del usuario para seguir mostrando las celdas
 
     do {
         int ncell=0;
         printf("Indique el numero de la celda de la que desea conocer su informacion (1 - 21):  \n");
         scanf("%d",&ncell);
-        if(ncell>=1 && ncell<=21) {                                        //Nos ayuda a controlar que los numero ingresados esten entre 1 y 21
-            if (controlador_celda_repetida(collectors,ncell)!=0) {        //Permite verificar si existe dicha celda o no
-                for (int i=0; i<SIZE_ARRAY; i++) {                       //Recorre el array de collector para impimir la celda seleccionada
+        if(ncell>=1 && ncell<=21) {                                                              //Nos ayuda a controlar que los numero ingresados esten entre 1 y 21
+            if (controlador_celda_repetida(collectors,ncell,m_espacio_aux)!=0) {        //Permite verificar si existe dicha celda o no
+                for (int i=0; i<m_espacio_aux; i++) {                                            //Recorre el array de collector para impimir la celda seleccionada
                     if(collectors[i].ncelda==ncell) {
                         puts(collectors[i].celda);
                         puts(collectors[i].address);
