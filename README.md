@@ -48,8 +48,8 @@ programa/
  main
 
 ### 2) wificollector_collect.c
-* Se asigna memoria mediante `malloc` con un tamaño inicial de 5, dependiendo de si el usuario desea ingresar más celdas el
-tamaño se ampliará 5 veces más con la funcion `calloc`, para ello se ocupara la variable `m_espacio` que esta definida en `main.c`
+* Se asigna memoria mediante `calloc` con un tamaño inicial de 5, dependiendo de si el usuario desea ingresar más celdas el
+tamaño se ampliará 5 veces más con la funcion `realloc`, para ello se ocupara la variable `m_espacio` que esta definida en `main.c`
 , la misma se irá ampliando en el mismo archivo `wificollector_collect`.
 
 * Construye la ruta `../input_files/info_cell_%d.txt`, abre en modo lectura y reparte cada línea a su campo `(CELDA… SIGNAL LEVEL)`.
