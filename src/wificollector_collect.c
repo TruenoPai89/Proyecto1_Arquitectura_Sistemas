@@ -21,7 +21,7 @@ void wificollector_collect(int *posicion_celda, int *m_espacio_aux) {
      *En este condicional nos permitira reservar el espacio de memoria una sola vez
      */
     if ((*posicion_celda)==0) {
-        collectors= malloc(sizeof(struct wificollector_collect)*(*m_espacio_aux));
+        collectors= calloc(*m_espacio_aux,sizeof(struct wificollector_collect));
     }
 
     char respuesta='s';         //Variable tipo caracter para guardar la respuesta del usuario

@@ -16,7 +16,7 @@
 void wificollector_display_all(int m_espacio_aux) {
 
     for (int i = 0; i <= m_espacio_aux; i++) {
-        if (collectors!=NULL) {
+        if (collectors->ncelda!=0) {
             puts(collectors[i].celda);
             puts(collectors[i].address);
             puts(collectors[i].essid);
@@ -26,8 +26,6 @@ void wificollector_display_all(int m_espacio_aux) {
             puts(collectors[i].quality);
             puts(collectors[i].frecuency);
             puts(collectors[i].signal_level);
-        }else {
-            continue;
         }
     }
 }
