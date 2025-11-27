@@ -9,21 +9,13 @@
 #include <stdlib.h>
 #include "../incl/wificollector_collect.h"
 
-struct wificollector_collect *collectors=NULL;
 
 /**
  *@brief Definicion de la funcion wificollector_collect
- * @param posicion_celda Dirreccion de memoria de la variable posicion_celda en main.c
- * @param m_espacio_aux Dirreccion de memoria de la variable m_espacio en main que actualiza el tamaño que tiene el arreglo
  */
-void wificollector_collect(int *posicion_celda, int *m_espacio_aux) {
-    /**
-     *En este condicional nos permitira reservar el espacio de memoria una sola vez
-     */
-    if ((*posicion_celda)==0) {
-        collectors= calloc(*m_espacio_aux,sizeof(struct wificollector_collect));
-    }
+void wificollector_collect(struct nodo_collectors **nodo) {
 
+    struct wificollector_collect collector;
     char respuesta='s';         //Variable tipo caracter para guardar la respuesta del usuario
 
     do {
@@ -32,7 +24,6 @@ void wificollector_collect(int *posicion_celda, int *m_espacio_aux) {
         int ncelda=0;               //Variable tipo entero para guardar el número de celda que queremos
         char cell[SIZE_TEXT];              //Array de caracteres para guardar la ruta relativa de los archivos de texto que tiene la celda deseada
 
-        printf("Posicion: %d\n",*posicion_celda);
         printf("Que celda quiere recolectar? (1 - 21): \n");
         scanf("%d",&ncelda);
         sprintf(cell,"../input_files/info_cell_%d.txt",ncelda);     //Funcion que permite crear una cadena de caracteres que se guardaran en cell con el formato especificado entre parentesis
@@ -40,7 +31,7 @@ void wificollector_collect(int *posicion_celda, int *m_espacio_aux) {
         /**
          *En este bloque de condicional se maneja las celdas que esten ya repetidas
          */
-        if (controlador_celda_repetida(collectors,ncelda,*m_espacio_aux)!=0) {
+        if (controlador_celda_repetida(*nodo,ncelda)!=0) {
             printf("Ya existe informacion de %d\n",ncelda);
         }else{
             /**
@@ -68,53 +59,43 @@ void wificollector_collect(int *posicion_celda, int *m_espacio_aux) {
 
                 while(fgets(linea,sizeof(linea),f)) {
                     if (descripcion==0) {
-                        strcpy(collectors[*posicion_celda].celda,linea);
+                        strcpy(collector.celda,linea);
                         descripcion++;
-                        collectors[*posicion_celda].ncelda=ncelda;
+                        collector.ncelda=ncelda;
                     }else if (descripcion==1) {
-                        strcpy(collectors[*posicion_celda].address,linea);
+                        strcpy(collector.address,linea);
                         descripcion++;
                     }else if (descripcion==2) {
-                        strcpy(collectors[*posicion_celda].essid,linea);
+                        strcpy(collector.essid,linea);
                         descripcion++;
                     }else if (descripcion==3) {
-                        strcpy(collectors[*posicion_celda].mode,linea);
+                        strcpy(collector.mode,linea);
                         descripcion++;
                     }else if (descripcion==4) {
-                        strcpy(collectors[*posicion_celda].chanel,linea);
+                        strcpy(collector.chanel,linea);
                         descripcion++;
                     }else if (descripcion==5) {
-                        strcpy(collectors[*posicion_celda].encryption,linea);
+                        strcpy(collector.encryption,linea);
                         descripcion++;
                     }else if (descripcion==6) {
-                        strcpy(collectors[*posicion_celda].quality,linea);
+                        strcpy(collector.quality,linea);
                         descripcion++;
                     }else if (descripcion==7) {
-                        strcpy(collectors[*posicion_celda].frecuency,linea);
+                        strcpy(collector.frecuency,linea);
                         descripcion++;
                     }else if (descripcion==8) {
-                        strcpy(collectors[*posicion_celda].signal_level,linea);
+                        strcpy(collector.signal_level,linea);
                         descripcion=0;
-                        (*posicion_celda)++;
+                        if (lista_vacia(*nodo)==0) {
+                            *nodo=crear_nodo(collector);
+                        }else {
+                            struct nodo_collectors *nodo_aux=crear_nodo(collector);
+                            *nodo=insertar(nodo_aux,*nodo);
+                        }
                     }
+
                     linea[0]='\0';          //Ponemos el array línea como vacio para que guarde las nuevas líneas de texto
 
-                    /**
-                     *Este bloque se encarga de aumentar el tamaño del arreglo mediante la funcion realloc, para ello
-                     *usamos la variable de la dirreccion m_espacio_aux
-                     */
-                    if ((*posicion_celda)%5==0 && (*posicion_celda)!=0 && descripcion==0) {
-                        printf("Aumentando la memoria\n");
-                        *m_espacio_aux+=5;
-                        struct wificollector_collect *ptr_collectors_aux=realloc(collectors,sizeof(struct wificollector_collect)*(*m_espacio_aux));
-                        if (ptr_collectors_aux==NULL) {
-                            printf("Error al aumentar tamaño\n");
-                            free(collectors);
-                            exit(1);
-                        }
-                        collectors=ptr_collectors_aux;
-                        printf("Memoria aumentada\n");
-                    }
                 }
                 fclose(f);                      //Con fclose cerramos el archivo
             }
@@ -130,19 +111,59 @@ void wificollector_collect(int *posicion_celda, int *m_espacio_aux) {
 
 /**
  *@brief Funcion para controlar las celdas guardadas en el struct collectors
- *@param ptr_collectors_aux Direccion de memoria de collectors
  *@param ncelda_aux Entero que lleva el número de celda que el usuario desea
- *@param m_espacio_aux Entero que lleva el tamaño del arreglo
  *@details La funcion recibe el struct y revisa si existe dicha celda recorriendo el arreglo de tamaño m_espacio_aux y lo confirma con la variable ncelda_aux
  */
-int controlador_celda_repetida(struct wificollector_collect *ptr_collectors_aux,int ncelda_aux,int m_espacio_aux) {
+int controlador_celda_repetida(struct nodo_collectors *lista,int ncelda_aux) {
     int controlador=0;
-    for (int i=0;i<m_espacio_aux;i++) {
-        if (ptr_collectors_aux!=NULL) {
-            if (ptr_collectors_aux[i].ncelda==ncelda_aux) {
+    struct nodo_collectors *nodo_aux;
+    for (nodo_aux=lista;nodo_aux!=NULL;nodo_aux=nodo_aux->siguiente) {
+        if (nodo_aux->siguiente!=NULL) {
+            if (nodo_aux->inicio.ncelda==ncelda_aux) {
                 controlador++;
             }
         }
     }
     return controlador;
+}
+
+struct nodo_collectors* crear_nodo(struct wificollector_collect datos) {
+    struct nodo_collectors *nuevo_nodo = malloc(sizeof(struct nodo_collectors));
+
+    nuevo_nodo->inicio=datos;
+    nuevo_nodo->siguiente=NULL;
+    return nuevo_nodo;
+}
+
+struct nodo_collectors* insertar(struct nodo_collectors* nodo_nuevo,struct nodo_collectors* nodo_raiz) {
+    struct nodo_collectors *nodo_aux1=nodo_raiz;
+    struct nodo_collectors *nodo_aux2=nodo_nuevo;
+
+        if (nodo_aux1->siguiente==NULL) {
+            nodo_aux1->siguiente=nodo_aux2;
+        }else {
+            nodo_aux1->siguiente=insertar(nodo_aux2,nodo_aux1->siguiente);
+        }
+
+    return nodo_aux1;
+}
+
+
+int contar_elementos(struct nodo_collectors* lista) {
+    int suma = 0;
+    struct nodo_collectors* ptr;
+    for(ptr = lista; ptr != NULL; ptr = ptr->siguiente){
+        suma++;
+    }
+    return suma;
+}
+
+
+
+int lista_vacia(struct nodo_collectors *nodo_inicial) {
+    if (nodo_inicial==NULL) {
+        return 0;
+    }else {
+        return 1;
+    }
 }

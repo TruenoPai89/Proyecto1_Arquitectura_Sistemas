@@ -38,12 +38,11 @@ struct wificollector_collect {
     char signal_level[SIZE_TEXT];
 };
 
-/**
- * Definimos un array de estructura de wificollector llamado collectors con un tamaño 21, aquí no se asigna memoria, solo se declara que esta variable
- * existe y está en otro archivo para asi poder manejar estos datos de collectors desde otros archivos.
- */
 
-extern struct wificollector_collect *collectors;
+struct nodo_collectors {
+    struct wificollector_collect inicio;
+    struct nodo_collectors* siguiente;
+};
 
 
 /**
@@ -51,7 +50,7 @@ extern struct wificollector_collect *collectors;
  *@param posicion_celda Entero para contralar la posicion de insercion de las celdas de red
  *@param m_espacio_aux Entero para controlar el espacion inicial que se asigna al arreglo de collectors
  */
-void wificollector_collect(int *posicion_celda, int *m_espacio_aux);
+void wificollector_collect(struct nodo_collectors **nodo);
 
 
 /**
@@ -62,5 +61,11 @@ void wificollector_collect(int *posicion_celda, int *m_espacio_aux);
  *@return Numero de veces que existe dicha celda
  *@details Si existe alguna celda repetida el valor de retorno será mayor a cero, pero de no existir retornará cero y guardará la celda
  */
-int controlador_celda_repetida(struct wificollector_collect *ptr_collectors_aux,int ncelda_aux,int m_espacio_aux);
+int controlador_celda_repetida(struct nodo_collectors *lista,int ncelda_aux);  // cambiar
+
+
+struct nodo_collectors* crear_nodo(struct wificollector_collect datos);
+int contar_elementos(struct nodo_collectors* lista);
+int lista_vacia(struct nodo_collectors *nodo_inicial);
+struct nodo_collectors* insertar(struct nodo_collectors* nodo_nuevo,struct nodo_collectors* nodo_raiz);
 #endif

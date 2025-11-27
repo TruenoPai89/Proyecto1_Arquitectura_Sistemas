@@ -13,19 +13,19 @@
  * @param m_espacio_aux Entero con el tamaño del arreglo collectors
  * @details La funcion imprimira todas las celdas que se encuentren guardadas en la estructura collectors con tamaño m_espacio_aux
  */
-void wificollector_display_all(int m_espacio_aux) {
-
-    for (int i = 0; i <= m_espacio_aux; i++) {
-        if (collectors->ncelda!=0) {
-            puts(collectors[i].celda);
-            puts(collectors[i].address);
-            puts(collectors[i].essid);
-            puts(collectors[i].mode);
-            puts(collectors[i].chanel);
-            puts(collectors[i].encryption);
-            puts(collectors[i].quality);
-            puts(collectors[i].frecuency);
-            puts(collectors[i].signal_level);
+void wificollector_display_all(struct nodo_collectors *collectors) {
+    struct nodo_collectors *nodo_aux;
+    for (nodo_aux=collectors;nodo_aux!=NULL;nodo_aux=nodo_aux->siguiente) {
+        if (nodo_aux->siguiente!=NULL) {
+            puts(nodo_aux->inicio.celda);
+            puts(nodo_aux->inicio.address);
+            puts(nodo_aux->inicio.essid);
+            puts(nodo_aux->inicio.mode);
+            puts(nodo_aux->inicio.chanel);
+            puts(nodo_aux->inicio.encryption);
+            puts(nodo_aux->inicio.quality);
+            puts(nodo_aux->inicio.frecuency);
+            puts(nodo_aux->inicio.signal_level);
         }
     }
 }

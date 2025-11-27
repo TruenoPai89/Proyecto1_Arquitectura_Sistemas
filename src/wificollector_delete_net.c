@@ -20,22 +20,18 @@
  * cada una de las celdas que existan después de la misma, empezamos a desplazarlo hacia la derecha y asi eliminamos la
  * celda querida y no dejamos un hueco vacio en el arreglo
  */
-void wificollector_delete_net(int m_espacio_aux) {
+void wificollector_delete_net(struct nodo_collectors **collectors) {
 
     char respuesta='\0';
-
+    struct nodo_collectors *nodo_aux;
     do {
-        int coincidencia=0;
         char essid[SIZE_TEXT]="\0";
         printf("Indique el ESSID (entre “”): \n");
         scanf("%s", essid);
-        for (int i=0; i<m_espacio_aux; i++) {
-            if (strstr(collectors[i].essid,essid)!=NULL) {
+        for (nodo_aux=(*collectors);nodo_aux!=NULL;nodo_aux=nodo_aux->siguiente) {
+            if (strstr(nodo_aux->inicio.essid,essid)!=NULL) {
                 printf("Eliminando la red %s\n",essid);
-                coincidencia++;
-            }
-            if (coincidencia!=0 && collectors[i].ncelda!=0) {
-                collectors[i]=collectors[i+1];
+                //collectors
             }
         }
         printf("Desea eliminar otra red: ");

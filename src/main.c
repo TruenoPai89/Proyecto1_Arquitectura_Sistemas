@@ -19,10 +19,10 @@
  * @details Se usará un bucle do-while para poder ejecutar el programa las veces que el usuario desee, con un switch se podra seleccionar las diferentes
  * opciones que se mostraran por pantalla.
  */
+
 int main() {
     char respuesta='\0';
-    int posicion_celda=0;
-    int m_espacio=5;
+    struct nodo_collectors *collectors=NULL;
 
     do {
         int option=0;
@@ -41,16 +41,16 @@ int main() {
                 wificollector_quit(&respuesta);
                 break;
             case 2:
-                wificollector_collect(&posicion_celda,&m_espacio);
+                wificollector_collect(&collectors);
                 break;
             case 3:
-                wificollector_delete_net(m_espacio);
+                wificollector_delete_net(collectors);
                 break;
             case 4:
-                wificollector_display(m_espacio);
+                wificollector_display(collectors);
                 break;
             case 5:
-                wificollector_display_all(m_espacio);
+                wificollector_display_all(collectors);
                 break;
             default:
                 return 0;
