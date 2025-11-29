@@ -44,7 +44,7 @@ int main() {
                 wificollector_collect(&collectors);
                 break;
             case 3:
-                wificollector_delete_net(collectors);
+                wificollector_delete_net(&collectors);
                 break;
             case 4:
                 wificollector_display(collectors);

@@ -23,18 +23,38 @@
 void wificollector_delete_net(struct nodo_collectors **collectors) {
 
     char respuesta='\0';
-    struct nodo_collectors *nodo_aux;
     do {
         char essid[SIZE_TEXT]="\0";
-        printf("Indique el ESSID (entre “”): \n");
+        int n_coincidencias=0;
+        printf("Indique el ESSID (entre “”): ");
         scanf("%s", essid);
-        for (nodo_aux=(*collectors);nodo_aux!=NULL;nodo_aux=nodo_aux->siguiente) {
-            if (strstr(nodo_aux->inicio.essid,essid)!=NULL) {
-                printf("Eliminando la red %s\n",essid);
-                //collectors
-            }
+        n_coincidencias=coincidencias_essid((*collectors),essid);
+        printf("Eliminando la red %s\n",essid);
+        for (int i=0;i<n_coincidencias;i++) {
+            (*collectors)=elminar_nodo((*collectors),essid);
         }
-        printf("Desea eliminar otra red: ");
+        printf("Desea eliminar otra red [s/N]: ");
         scanf(" %c",&respuesta);
     }while (respuesta=='S'||respuesta=='s');
+}
+
+struct nodo_collectors* elminar_nodo(struct nodo_collectors *nodo_raiz,char essid[SIZE_TEXT]) {
+    struct nodo_collectors *nodo_aux=nodo_raiz;
+    if (strstr(nodo_aux->inicio.essid,essid)!=NULL) {
+        nodo_aux=nodo_aux->siguiente;
+    }else {
+        nodo_aux->siguiente=elminar_nodo(nodo_aux->siguiente,essid);
+    }
+    return nodo_aux;
+}
+
+int coincidencias_essid(struct nodo_collectors *nodo_raiz,char essid[SIZE_TEXT]) {
+    struct nodo_collectors *nodo_aux;
+    int coincidencias=0;
+    for (nodo_aux=nodo_raiz;nodo_aux!=NULL;nodo_aux=nodo_aux->siguiente) {
+        if (strstr(nodo_aux->inicio.essid,essid)!=NULL) {
+            coincidencias++;
+        }
+    }
+    return coincidencias;
 }

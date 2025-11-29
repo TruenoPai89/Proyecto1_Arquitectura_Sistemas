@@ -16,7 +16,7 @@
 void wificollector_display_all(struct nodo_collectors *collectors) {
     struct nodo_collectors *nodo_aux;
     for (nodo_aux=collectors;nodo_aux!=NULL;nodo_aux=nodo_aux->siguiente) {
-        if (nodo_aux->siguiente!=NULL) {
+        if (nodo_aux!=NULL) {
             puts(nodo_aux->inicio.celda);
             puts(nodo_aux->inicio.address);
             puts(nodo_aux->inicio.essid);
