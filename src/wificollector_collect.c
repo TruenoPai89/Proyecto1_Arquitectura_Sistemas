@@ -15,7 +15,7 @@
  */
 void wificollector_collect(struct nodo_collectors **nodo) {
 
-    struct wificollector_collect collector;
+    struct wificollector_collect collector={0};
     char respuesta='s';         //Variable tipo caracter para guardar la respuesta del usuario
 
     do {
@@ -128,7 +128,7 @@ int controlador_celda_repetida(struct nodo_collectors *lista,int ncelda_aux) {
 }
 
 struct nodo_collectors* crear_nodo(struct wificollector_collect datos) {
-    struct nodo_collectors *nuevo_nodo = malloc(sizeof(struct nodo_collectors));
+    struct nodo_collectors *nuevo_nodo = calloc(1,sizeof(struct nodo_collectors));
 
     nuevo_nodo->inicio=datos;
     nuevo_nodo->siguiente=NULL;

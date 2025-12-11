@@ -10,9 +10,12 @@
 #include "../incl/wificollector_collect.h"
 #include "../incl/wificollector_quit.h"
 #include "../incl/wificollector_delete_net.h"
+#include "../incl/wificollector_export.h"
+#include "../incl/wificollector_import.h"
 #include "../incl/wificollector_display.h"
 #include "../incl/wificollector_display_all.h"
 
+void liberara_memoria(struct nodo_collectors *collectors);
 
 /**
  * @brief Funcion principal donde se llaman a las funciones de otros archivos
@@ -31,8 +34,10 @@ int main() {
         printf("[ 1] wificollector_quit\n");
         printf("[ 2] wificollector_collect\n");
         printf("[ 3] wificollector_delete_net \n");
-        printf("[ 4] wificollector_display\n");
-        printf("[ 5] wificollector_display_all\n");
+        printf("[ 4] wificollector_export\n");
+        printf("[ 5] wificollector_import\n");
+        printf("[ 6] wificollector_display\n");
+        printf("[ 7] wificollector_display_all\n");
         printf("Ingrese un valor: ");
         scanf("%d", &option);
 
@@ -47,15 +52,35 @@ int main() {
                 wificollector_delete_net(&collectors);
                 break;
             case 4:
-                wificollector_display(collectors);
+                wificollector_export(collectors);
                 break;
             case 5:
+                wificollector_import(&collectors);
+                break;
+            case 6:
+                wificollector_display(collectors);
+                break;
+            case 7:
                 wificollector_display_all(collectors);
                 break;
             default:
                 return 0;
         }
     }while(respuesta !='s' && respuesta!='S');
-    free(collectors);
+    liberara_memoria(collectors);
     return 0;
+}
+
+void liberara_memoria(struct nodo_collectors *collectors) {
+    struct nodo_collectors *nodo_aux = collectors;
+    struct nodo_collectors *nodo_siguiente;
+
+    while (nodo_aux != NULL) {
+
+        nodo_siguiente = nodo_aux->siguiente;
+        free(nodo_aux);
+        nodo_aux = nodo_siguiente;
+    }
+
+    collectors = NULL;
 }
