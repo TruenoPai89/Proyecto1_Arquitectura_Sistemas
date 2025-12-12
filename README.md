@@ -1,4 +1,5 @@
 # Proyecto Arquitectura de Sistemas
+https://github.com/TruenoPai89/Proyecto1_Arquitectura_Sistemas.git
 ## Descripcion
 El objetivo de este proyecto es el emplear conocimientos basicos de programacion en C para el desarrollo 
 de una aplicacion de consola y que la misma pueda ser ejecutada en un entorno linux.
