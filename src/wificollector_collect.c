@@ -11,7 +11,10 @@
 
 
 /**
- *@brief Definicion de la funcion wificollector_collect
+ *@brief Implementacion de la funcion wificollector_collect
+ *@param nodo Nodo que contiene las redes
+ *@details Pasamos como parametro por referencia al nodo collectors para poder modificarlo en esta funcio void, con ello
+ *podemos insertar nodos hayamos creado.
  */
 void wificollector_collect(struct nodo_collectors **nodo) {
 
@@ -112,7 +115,9 @@ void wificollector_collect(struct nodo_collectors **nodo) {
 /**
  *@brief Funcion para controlar las celdas guardadas en el struct collectors
  *@param ncelda_aux Entero que lleva el número de celda que el usuario desea
- *@details La funcion recibe el struct y revisa si existe dicha celda recorriendo el arreglo de tamaño m_espacio_aux y lo confirma con la variable ncelda_aux
+ *@param lista Lista donde están las redes
+ *@details La funcion recibe el struct y revisa si existe dicha celda recorriendo la lista una con la ayuda de un nodo auxiliar, cuando encuentra la coicidendia
+ *devuelve un número que significara que ya existe dicha red
  */
 int controlador_celda_repetida(struct nodo_collectors *lista,int ncelda_aux) {
     int controlador=0;
@@ -127,6 +132,14 @@ int controlador_celda_repetida(struct nodo_collectors *lista,int ncelda_aux) {
     return controlador;
 }
 
+/**
+ * @brief Implementacion de la funcion crear_nodo
+ * @param datos Estructura que ira dentro de nuestro nodo_collectors
+ * @return Devuelve la dirreccion de memoria que se le ha asignado al nodo
+ * @details Recibimos una estructura con todos los datos de una red y la asignamos a un nodo que tiene reservada memoria
+ * una vez se asigna memoria se rellena los campos de inicio con la estructura y siguiente lo inicializamos como NULL ya
+ * el siguiente nodo estara vacio
+ */
 struct nodo_collectors* crear_nodo(struct wificollector_collect datos) {
     struct nodo_collectors *nuevo_nodo = calloc(1,sizeof(struct nodo_collectors));
 
@@ -135,20 +148,31 @@ struct nodo_collectors* crear_nodo(struct wificollector_collect datos) {
     return nuevo_nodo;
 }
 
+/**
+ *@brief Implementacion de la funcion insertar
+ * @param nodo_nuevo Nodo con nuevos datos a ser enlazados
+ * @param nodo_raiz Nodo principal donde se almacena todos los datos
+ * @return Regresa una dirreccion de memoria con los nodos enlazados
+ * @details Recibimos como parametros 2 nodos, el principal y el nuevo, la funcion se apoya de un auxiliar que permite
+ * recorrer la lista principal hasta llegar al final y asi enlazar los nuevos nodos
+ */
 struct nodo_collectors* insertar(struct nodo_collectors* nodo_nuevo,struct nodo_collectors* nodo_raiz) {
     struct nodo_collectors *nodo_aux1=nodo_raiz;
-    struct nodo_collectors *nodo_aux2=nodo_nuevo;
 
         if (nodo_aux1->siguiente==NULL) {
-            nodo_aux1->siguiente=nodo_aux2;
+            nodo_aux1->siguiente=nodo_nuevo;
         }else {
-            nodo_aux1->siguiente=insertar(nodo_aux2,nodo_aux1->siguiente);
+            nodo_aux1->siguiente=insertar(nodo_nuevo,nodo_aux1->siguiente);
         }
 
     return nodo_aux1;
 }
 
-
+/**
+ * @brief Implementacion de la funcion contar_elementos
+ * @param lista Lista de redes
+ * @return Devuelve un entero con el numerous de elementos
+ */
 int contar_elementos(struct nodo_collectors* lista) {
     int suma = 0;
     struct nodo_collectors* ptr;
@@ -158,8 +182,13 @@ int contar_elementos(struct nodo_collectors* lista) {
     return suma;
 }
 
-
-
+/**
+ * @brief Implementacion de la funcion lista_vacia
+ * @param nodo_inicial Nodo o lista de redes
+ * @return Devuelve un entero que indicara si esta lista o nodo esta vacia
+ * @details Recibimos un nodo o lista como parametro por valor y verificamos si el primer nodo es vacio, si es el caso retorna 0 indicando que
+ * está sin datos, si no es asi retorna 1 y muestra que se encuentra con datos
+ */
 int lista_vacia(struct nodo_collectors *nodo_inicial) {
     if (nodo_inicial==NULL) {
         return 0;
