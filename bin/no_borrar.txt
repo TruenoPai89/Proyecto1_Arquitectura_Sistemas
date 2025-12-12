@@ -1,0 +1,3 @@
+Este archivo tiene la finalidad de crear la carpeta bin para el correcto funcionamiento de las funciones de import y export
+de este proyecto, solo ignorar este archivo.
+Se puedo implementar librerias para la creacion automatica de dicha carpeta, pero lo omitimos para no entrar en más tema

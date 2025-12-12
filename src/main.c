@@ -15,6 +15,10 @@
 #include "../incl/wificollector_display.h"
 #include "../incl/wificollector_display_all.h"
 
+/**
+ *@brief Declaracion de la funcion interna liberar_memoria
+ * @param collectors Lista que tiene las dirreciones de collectors
+ */
 void liberara_memoria(struct nodo_collectors *collectors);
 
 /**
@@ -71,6 +75,14 @@ int main() {
     return 0;
 }
 
+/**
+ * @brief Implementacion de la funcion liberar_memoria
+ * @details Se pasa como parametro por valor la lista collectors, con la ayuda de 2 nodos auxiliares empezamos a liberar
+ * la memoria asignada a cada nodo que se haya creado en la ejecucion del codigo, primero asignamos a nodo siguinte con
+ * el valor de aux siguiente para que nodo siguiente contenga los nodos que vienen después del nodo a liberar en ese momento,
+ * se libera el nodo aux para luego copiar los nodos de siguiente en aux, esto se repite hasta que la lista llegue a NULL
+ * asi liberando la memoria uno por uno de cada nodo.
+ */
 void liberara_memoria(struct nodo_collectors *collectors) {
     struct nodo_collectors *nodo_aux = collectors;
     struct nodo_collectors *nodo_siguiente;

@@ -1,7 +1,20 @@
+/**
+*@author Carlos Condor
+ *@date 2025-12-11
+ *@file wificollector_export.c
+ *@brief Implementacion de funciones para exportar archivos binarios a la lista
+ */
 #include <stdio.h>
 
 #include "../incl/wificollector_export.h"
 
+/**
+ *@brief Implementacion de la funcion wificollector_export
+ *@param collector Parametro que accede a la lista con las celdas a exportar
+ *@details Recibimos como parametro por valor la lista collector, se pregunta el nombre con él se desea guardar, se abre
+ *un archivo en modo escritura binaria, se verifica que se pueda crear dicho archivo, mediante un for recorremos el archivo
+ *y empezamos a escribir, una vez terminado cerramos el mismo y mostramos la ruta donde se ha guardado
+ */
 void wificollector_export(struct nodo_collectors *collector) {
     char nombre_archivo[SIZE_TEXT];
     char ruta_completa[SIZE_TEXT];
