@@ -39,7 +39,7 @@ struct nodo_collectors* concatenar(struct nodo_collectors* nodo_nuevo,struct nod
 void wificollector_import(struct nodo_collectors **collectors) {
     char nombre_archivo[SIZE_TEXT]="\0";
     char ruta_archivo[SIZE_TEXT]="\0";
-    struct nodo_collector *nodo_aux=NULL;
+    struct nodo_collectors *nodo_aux=NULL;
 
     printf("Indique el nombre del fichero: ");
     scanf("%s",nombre_archivo);
